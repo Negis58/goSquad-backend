@@ -9,8 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.1",
+    "config-js": "^1.1.14",
     "express": "^4.17.1",
     "mongodb": "^3.5.8",
-    "mongoose": "^5.9.17"
+    "mongoose": "^5.9.17",
+    "nodemon": "^2.0.4",
+    "body-parser": "latest"
   }
 }
