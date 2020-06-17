@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const user_routes = require('./routes/userRouter.js');
+const userRoutes = require('./routes/userRouter.js');
 const config = require('config');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const userInfo_routes = require('./routes/userInfoRouter.js')
+const userInfoRoutes = require('./routes/userInfoRouter.js')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -21,7 +21,7 @@ mongoose.connection.on('connected',()=>
     console.info("Еще лучше");
 });
 
-app.use("/user", user_routes);
+app.use("/user", userRoutes);
 
 
 
