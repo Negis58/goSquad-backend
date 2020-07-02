@@ -10,12 +10,13 @@ class usersController {
     getUsers(req,res) {
         User.find(function (err,user,next) {
             if (err) return next(err);
-           res.json(user);
+            res.json(user);
         });
     }
 
-    getUserbyID(res,req,next) {
-        User.findById(req.params.id, function (err,user) {
+    getUserByID(res,req,next) {
+        User.findById({_id: req.params.id}, function (err,user) {
+            console.log(req.body);
             if (err) return next(err);
             res.json(user);
         });

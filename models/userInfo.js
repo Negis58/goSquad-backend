@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
+const user = require('../models/user');
+
 
 const userSchema = new mongoose.Schema({
-    nickname: { type: String, unique: true },
+    nickName: { type: String, unique: true },
     firstName: { type: String },
     lastName: { type: String },
     dateOfBirth: { type: String },

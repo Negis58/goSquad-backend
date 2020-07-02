@@ -6,9 +6,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userInfoRoutes = require('./routes/userInfoRouter.js');
 
-app.set('secretKey', config.get('jwtToken.secret'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.set('secretKey', config.get('jwtToken.secret'));
 
 mongoose.connect(config.get('Mongodb.dbConfig')), { useNewUrlParser: true, useUnifiedTopology: true };
 
@@ -23,6 +23,7 @@ mongoose.connection.on('connected',()=>
 });
 
 app.use('/', userRoutes);
+app.use('/', userInfoRoutes);
 
 
 

@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     postID: { type: String },
     ownerNickname: { type: String },
     creationTime: { type: Date },
-    timeToLive: { type: },
+    timeToLive: { type: Number},
     maxAmountOfPlayer: { type: Number },
     gameID: { type: String },
     description: { type: String },
