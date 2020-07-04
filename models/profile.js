@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
-    platformID: { type: String },
+    platformId: { type: String },
     nickname: { type: String }
 }, { collection: 'profile', versionKey: false});
 

@@ -1,5 +1,5 @@
 const userInfo = require('../models/userInfo');
-
+const user = require('../models/user');
 class usersInfoController {
 
     getUsersInfo(req,res) {

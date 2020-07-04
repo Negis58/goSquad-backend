@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userInfoRoutes = require('./routes/userInfoRouter.js');
 const locationsRoutes = require('./routes/locationsRouter');
-
+const profileRoutes = require('./routes/profileRouter');
 
 
 app.use(bodyParser.json());
@@ -30,6 +30,7 @@ mongoose.connection.on('connected',()=>
 app.use('/', userRoutes);
 app.use('/', userInfoRoutes);
 app.use('/', locationsRoutes);
+app.use('/', profileRoutes);
 
 
 
