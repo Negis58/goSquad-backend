@@ -1,11 +1,4 @@
-const mongoose = require('mongoose');
-const { validationResult } = require('express-validator');
-const bodyParser = require('body-parser');
-const config = require('config');
 const userInfo = require('../models/userInfo');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const user = require('../models/user');
 
 class usersInfoController {
 
@@ -24,15 +17,17 @@ class usersInfoController {
         });
     }
     createUserInfo(req,res,next) {
-            const user = new userInfo({
-                nickName: req.body.nickName,
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                dateOfBirth: req.body.dateOfBirth,
-                voiceChat: req.body.voiceChat,
-                country: req.body.country
-            });
-            user.save();
+        const user = new userInfo({
+            nickName: req.body.nickName,
+            serviceIds: req.body.serviceIds,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            dateOfBirth: req.body.dateOfBirth,
+            voiceChat: req.body.voiceChat,
+            platformIds: req.body.platformIds,
+            country: req.body.country
+        });
+        user.save();
     }
 
 

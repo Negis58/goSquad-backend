@@ -7,7 +7,7 @@ const {check} = require('express-validator');
 router.get('/userInfo', userInfoController.getUsersInfo);
 router.get('/userInfo/:id', userInfoController.getUserInfoByID);
 router.delete("/:id", userInfoController.removeUser);
-router.post('/createUserInfo', userInfoController.createUserInfo);
+router.post('/userInfo', userInfoController.createUserInfo);
 
 
 module.exports = router;

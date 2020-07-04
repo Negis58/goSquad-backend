@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
-const bodyParser = require('body-parser');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -15,7 +14,7 @@ class usersController {
     }
 
     getUserByID(res,req,next) {
-        User.findById({_id: req.params.id}, function (err,user) {
+        User.findById(req.params.id, function (err,user) {
             console.log(req.body);
             if (err) return next(err);
             res.json(user);

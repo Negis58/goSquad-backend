@@ -4,11 +4,13 @@ const user = require('../models/user');
 
 
 const userSchema = new mongoose.Schema({
-    nickName: { type: String, unique: true },
+    nickName: { type: String},
+    serviceIds: { type: Array},
     firstName: { type: String },
     lastName: { type: String },
-    dateOfBirth: { type: String },
+    dateOfBirth: { type: Date, default: Date.now() },
     voiceChat: { type: Boolean },
+    platformIds: { type: Array},
     country: { type: Number }
 }, { collection: 'userInfo', versionKey: false});
 
