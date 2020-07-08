@@ -9,7 +9,6 @@ class locationsController {
         });
     }
 
-
     createLocations(req,res,next) {
         const user = new locations({
             locationID: req.body.locationID,

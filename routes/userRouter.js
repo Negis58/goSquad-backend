@@ -12,5 +12,6 @@ router.post('/register', [check('email').isEmail(), check('password').isLength({
     check('nickname').notEmpty()], userController.createUser);
 router.post('/authenticate', [check('email').isEmail(), check('password').isLength({min:8, max:256}),
     check('nickname').notEmpty()], userController.authenticate);
+router.put('/user/:id', userController.updateUser);
 
 module.exports = router;

@@ -13,7 +13,7 @@ class usersController {
         });
     }
 
-    getUserByID(res,req,next) {
+    getUserByID(req,res,next) {
         User.findById(req.params.id, function (err,user) {
             console.log(req.body);
             if (err) return next(err);
@@ -37,19 +37,35 @@ class usersController {
     }
 
     authenticate(req,res,next) {
-            User.findOne({ email:req.body.email }, function(err, user) {
-                if (err) {
-                    next(err);
+        User.findOne({email: req.body.email}, function (err, user) {
+            if (err) {
+                next(err);
+            } else {
+                if (bcrypt.compareSync(req.body.password, user.password)) {
+                    const token = jwt.sign({id: user._id}, req.app.get('secretKey'), {expiresIn: '1h'});
+                    res.json({status: "success", message: "user found", data: {user: user, token: token}});
                 } else {
-                    if(bcrypt.compareSync(req.body.password, user.password)) {
-                        const token = jwt.sign({id: user._id}, req.app.get('secretKey'), { expiresIn: '1h' });
-                        res.json({ status:"success", message: "user found", data:{user: user, token:token }});
-                    }else{
-                        res.json({ status:"error", message: "Invalid email or password!!!", data:null });
-                    }
+                    res.json({status: "error", message: "Invalid email or password!!!", data: null});
                 }
-            });
-        }
+            }
+        });
+    }
+
+    updateUser(req,res,next) {
+        User.findById(req.params.id, function (err, user) {
+            if (!user) {
+                res.statusCode = 404;
+                res.json({status: "Not found"});
+            }
+            else {
+                user.email = req.body.email;
+                user.nickname = req.body.nickname;
+                user.password = req.body.password;
+                user.save();
+                res.json({status: "Ok"});
+                }
+        })
+    }
 
     removeUser(req,res,next) {
         const id = req.params.id;

@@ -10,7 +10,7 @@ class usersInfoController {
         });
     }
 
-    getUserInfoByID(res,req,next) {
+    getUserInfoByID(req,res,next) {
         userInfo.findById(req.params.id, function (err,user) {
             if (err) return next(err);
             res.json(user);
@@ -30,6 +30,27 @@ class usersInfoController {
         user.save();
     }
 
+    updateUserInfo(req,res,next) {
+        userInfo.findById(req.params.id, function (err, user) {
+            if (!user) {
+                res.statusCode = 404;
+                res.json({status: "Not found"});
+            }
+            else {
+                user.nickName = req.body.nickName;
+                user.serviceIds = req.body.serviceIds;
+                user.firstName = req.body.firstName;
+                user.lastName = req.body.lastName;
+                user.dateOfBirth = req.body.dateOfBirth;
+                user.voiceChat = req.body.voiceChat;
+                user.platformIds = req.body.platformIds;
+                user.country = req.body.country;
+                user.save();
+                res.json({status: "Ok"});
+            }
+        })
+
+    }
 
     removeUser(req,res,next) {
         const id = req.params.id;

@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     creationTime: { type: Date },
     timeToLive: { type: Number},
     maxAmountOfPlayer: { type: Number },
-    gameID: { type: String },
+    gameId: { type: String },
     description: { type: String },
     isPrivate: { type: Boolean }
 }, { collection: 'post', versionKey: false});
