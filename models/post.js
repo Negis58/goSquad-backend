@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
-    postID: { type: String },
+    postId: { type: String, unique: true },
     ownerNickname: { type: String },
     creationTime: { type: Date },
     timeToLive: { type: Number},

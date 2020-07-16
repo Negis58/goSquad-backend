@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
-    locationId: { type: String },
+    locationId: { type: String, unique: true },
     countyName: { type: String }
 }, { collection: 'locations', versionKey: false});
 

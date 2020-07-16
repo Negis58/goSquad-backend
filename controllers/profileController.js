@@ -21,7 +21,7 @@ class profileController {
 
     createProfile(req,res,next) {
         const profiles = new profile({
-            platformId: req.body.platformId,
+            platformId: new mongoose.Types.ObjectId(),
             nickname: req.body.nickname
         });
         profiles.save();

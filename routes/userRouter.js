@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const mongoose = require('mongoose');
-const userController = require('../controllers/usersController');
+const userController = require('../controllers/userController');
 const {check} = require('express-validator');
 
 router.get('/user', userController.getUsers);

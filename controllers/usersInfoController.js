@@ -1,5 +1,4 @@
 const userInfo = require('../models/userInfo');
-const user = require('../models/user');
 class usersInfoController {
 
     getUsersInfo(req,res) {
@@ -45,6 +44,7 @@ class usersInfoController {
                 user.voiceChat = req.body.voiceChat;
                 user.platformIds = req.body.platformIds;
                 user.country = req.body.country;
+                user.about = req.body.about;
                 user.save();
                 res.json({status: "Ok"});
             }

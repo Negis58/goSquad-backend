@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
     dateOfBirth: { type: Date, default: Date.now() },
     voiceChat: { type: Boolean },
     platformIds: { type: Array},
-    country: { type: Number }
+    country: { type: Number },
+    about: { type: String}
 }, { collection: 'userInfo', versionKey: false});
 
 module.exports = mongoose.model('UserInfo', userSchema);

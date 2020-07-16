@@ -5,7 +5,7 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-class usersController {
+class userController {
     getUsers(req,res) {
         User.find(function (err,user,next) {
             if (err) return next(err);
@@ -75,6 +75,6 @@ class usersController {
     }
 }
 
-module.exports = new usersController();
+module.exports = new userController();
 
 
