@@ -7,15 +7,26 @@ const bcrypt = require('bcrypt');
 
 class userController {
     getUsers(req,res) {
-        User.find(function (err,user,next) {
-            if (err) return next(err);
-            res.json(user);
-        });
+
+        let result = {};
+        let status = 200;
+                User.find(function (err,user) {
+            if (!err) {
+                result.status = status;
+                result.error = err;
+                result.result = user;
+            } else {
+                status = 500;
+                result.status = status;
+                result.error = err;
+            }
+            res.status(status).send(result);
+
+                });
     }
 
     getUserByID(req,res,next) {
         User.findById(req.params.id, function (err,user) {
-            console.log(req.body);
             if (err) return next(err);
             res.json(user);
         });
@@ -36,20 +47,41 @@ class userController {
         }
     }
 
-    authenticate(req,res,next) {
-        User.findOne({email: req.body.email}, function (err, user) {
-            if (err) {
-                next(err);
-            } else {
-                if (bcrypt.compareSync(req.body.password, user.password)) {
-                    const token = jwt.sign({id: user._id}, req.app.get('secretKey'), {expiresIn: '1h'});
-                    res.json({status: "success", message: "user found", data: {user: user, token: token}});
+    authenticate(req,res) {
+        let result = {};
+        let status = 200;
+            User.findOne({email: req.body.email}, function (err, user) {
+                if (!err && user) {
+                    bcrypt.compare(req.body.password, user.password).then(match => {
+                        if (match) {
+                            status = 200;
+                            const payload = {id: user._id};
+                            const options = {expiresIn: '48d'};
+                            const token = jwt.sign(payload, config.get('jwtToken.secret'), options);
+                            result.token = token;
+                            result.status = status;
+                            result.result = user;
+                        } else {
+                            status = 401;
+                            result.status = status;
+                            result.error = 'Authentication error';
+                        }
+                        res.status(status).send(result);
+                    }).catch(err => {
+                        status = 500;
+                        result.status = status;
+                        result.error = err;
+                        res.status(status).send(result);
+                    });
                 } else {
-                    res.json({status: "error", message: "Invalid email or password!!!", data: null});
+                    status = 404;
+                    result.status = status;
+                    result.error = err;
+                    res.status(status).send(result);
                 }
-            }
-        });
+            });
     }
+
 
     updateUser(req,res,next) {
         User.findById(req.params.id, function (err, user) {
@@ -73,6 +105,7 @@ class userController {
             res.status(200).json(result);
         });
     }
+
 }
 
 module.exports = new userController();

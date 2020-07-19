@@ -1,15 +1,15 @@
 const userInfo = require('../models/userInfo');
+const User = require('../models/user');
 class usersInfoController {
 
     getUsersInfo(req,res) {
         userInfo.find(function (err,user,next) {
             if (err) return next(err);
-        }).populate('user').exec((err, user) => {
+        }).populate('User').exec((err, user) => {
             res.json(user);
         });
     }
-
-    getUserInfoByID(req,res,next) {
+    getUserInfoById(req,res,next) {
         userInfo.findById(req.params.id, function (err,user) {
             if (err) return next(err);
             res.json(user);
@@ -30,7 +30,7 @@ class usersInfoController {
     }
 
     updateUserInfo(req,res,next) {
-        userInfo.findById(req.params.id, function (err, user) {
+        userInfo.findOne(req.params.nickName, function (err, user) {
             if (!user) {
                 res.statusCode = 404;
                 res.json({status: "Not found"});

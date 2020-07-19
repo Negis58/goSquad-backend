@@ -30,7 +30,7 @@ class platformController {
 
     updatePlatform(req,res,next) {
         Platform.findById(req.params.id, function (err, platform) {
-            if (!profile) {
+            if (!platform) {
                 res.statusCode = 404;
                 res.json({status: "Not found"});
             }
