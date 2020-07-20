@@ -10,8 +10,8 @@ class gameController {
         });
     }
 
-    getGameById(req,res,next) {
-        Game.findById(req.params.id, function (err,game) {
+    getGameByGameName(req,res,next) {
+        Game.findOne(req.params.gameName, function (err,game) {
             console.log(req.body);
             if (err) return next(err);
             res.json(game);
@@ -29,7 +29,7 @@ class gameController {
     }
 
     updateGame(req,res, next) {
-        Game.findById(req.params.id, function (err, game) {
+        Game.findOne(req.params.gameName, function (err, game) {
             if (!game) {
                 res.status = 404;
                 res.json({status: "Not found"});

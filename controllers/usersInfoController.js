@@ -9,15 +9,15 @@ class usersInfoController {
             res.json(user);
         });
     }
-    getUserInfoById(req,res,next) {
-        userInfo.findById(req.params.id, function (err,user) {
+    getUserInfoByNickname(req,res,next) {
+        userInfo.findOne({nickname: req.params.nickname}, function (err,user) {
             if (err) return next(err);
             res.json(user);
         });
     }
     createUserInfo(req,res,next) {
         const user = new userInfo({
-            nickName: req.body.nickName,
+            nickname: req.body.nickname,
             serviceIds: req.body.serviceIds,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -30,13 +30,13 @@ class usersInfoController {
     }
 
     updateUserInfo(req,res,next) {
-        userInfo.findOne(req.params.nickName, function (err, user) {
+        userInfo.findOne({nickname: req.params.nickname}, function (err, user) {
             if (!user) {
                 res.statusCode = 404;
                 res.json({status: "Not found"});
             }
             else {
-                user.nickName = req.body.nickName;
+                user.nickname = req.body.nickname;
                 user.serviceIds = req.body.serviceIds;
                 user.firstName = req.body.firstName;
                 user.lastName = req.body.lastName;

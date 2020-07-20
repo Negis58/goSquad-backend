@@ -4,7 +4,7 @@ const user = require('../models/user');
 
 
 const userSchema = new mongoose.Schema({
-    nickName: { type: String},
+    nickname: { type: String, unique: true},
     serviceIds: { type: Array},
     firstName: { type: String },
     lastName: { type: String },

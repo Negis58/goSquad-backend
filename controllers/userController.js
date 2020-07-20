@@ -4,10 +4,10 @@ const { validationResult } = require('express-validator');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const UserInfo = require('../models/userInfo');
 
 class userController {
     getUsers(req,res) {
-
         let result = {};
         let status = 200;
                 User.find(function (err,user) {
@@ -44,6 +44,10 @@ class userController {
                 password: req.body.password
             });
             user.save();
+            const userInfo = new UserInfo({
+                nickname: req.body.nickname
+            });
+            userInfo.save();
         }
     }
 
