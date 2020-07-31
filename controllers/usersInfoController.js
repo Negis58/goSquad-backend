@@ -28,7 +28,10 @@ class usersInfoController {
         });
         user.save();
     }
-
+    updateUserInfos(req,res) {
+        const InfoUpdate = req.body;
+        userInfo.findOneAndUpdate({nickname: req.params.nickname}, InfoUpdate)
+    }
     updateUserInfo(req,res,next) {
         userInfo.findOne({nickname: req.params.nickname}, function (err, user) {
             if (!user) {

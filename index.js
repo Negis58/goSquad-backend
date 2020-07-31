@@ -13,12 +13,14 @@ const imageRoutes = require('./routes/imageRouter');
 const messageRoutes = require('./routes/messageRouter');
 const postRoutes = require('./routes/postRouter');
 const platformRoutes = require('./routes/platformRouter');
+const validateToken = require('./middleware/validateToken');
+const jwt = require('jsonwebtoken');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('secretKey', config.get('jwtToken.secret'));
-
-mongoose.connect(config.get('Mongodb.dbConfig')), { useNewUrlParser: true, useUnifiedTopology: true };
+mongoose.connect(config.get('Mongodb.dbConfig')), { useNewUrlParser: true, useUnifiedTopology: true,
+useFindAndModify: false};
 
 app.listen(8080, function(err){
     if(err) console.error(err);
@@ -32,8 +34,8 @@ mongoose.connection.on('connected',()=>
     console.info("Еще лучше");
 });
 
-app.use('/', userRoutes);
-app.use('/', userInfoRoutes);
+app.use('/', validateToken.validateToken, userRoutes);
+app.use('/', validateToken.validateToken, userInfoRoutes);
 app.use('/', locationsRoutes);
 app.use('/', profileRoutes);
 app.use('/', gameRoutes);

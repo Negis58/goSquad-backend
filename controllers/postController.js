@@ -1,4 +1,6 @@
 const Post = require('../models/post');
+const UserInfo = require('../models/userInfo');
+const Game = require('../models/game');
 
 class postController {
 
@@ -18,13 +20,18 @@ class postController {
     }
 
     createPost(req,res,next) {
+        var gameIdRes = {};
+        Game.findOne({gameId: req.body.gameId}, function (err, game, next) {
+            if (err) next(err);
+            gameIdRes.gameIdRes = game.body.gameId;
+        });
         const post = new Post({
             postId: req.body.postId,
-            ownerNickname: req.body.ownerNickname,
+            ownerNickname: req.params.nickname,
             creationTime: req.body.creationTime,
             timeToLive: req.body.timeToLive,
             maxAmountOfPlayer: req.body.maxAmountOfPlayer,
-            gameId: req.body.gameId,
+            gameId: gameIdRes,
             description: req.body.description,
             isPrivate: req.body.isPrivate
         });
